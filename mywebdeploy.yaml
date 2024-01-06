@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: myweb
+  name: myweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myweb
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: myweb
+    spec:
+      volumes:
+      - name: cmvol
+        configMap: 
+          name: myindex
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+        volumeMounts: 
+        - mountPath: /usr/share/nginx/html
+          name: cmvol
+status: {}
