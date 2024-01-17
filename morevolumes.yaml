@@ -22,4 +22,5 @@ spec:
         name: test
   volumes: 
     - name: test
-      emptyDir: {}
+      hostPath: 
+        path: /myfiles2
