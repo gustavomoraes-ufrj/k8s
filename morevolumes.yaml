@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata: 
-  name: morevol
+  name: morevol1
 spec:
   containers:
   - name: centos1
@@ -23,4 +23,4 @@ spec:
   volumes: 
     - name: test
       hostPath: 
-        path: /myfiles2
+        path: /myfiles
