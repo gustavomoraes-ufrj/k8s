@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: myweb
+    type: canary
+  name: myweb
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myweb
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: myweb
+        type: canary
+    spec:
+      containers:
+      - image: nginx:1.14
+        name: nginx
+        resources: {}
+status: {}
