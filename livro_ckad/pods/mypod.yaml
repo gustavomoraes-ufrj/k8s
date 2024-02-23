@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: mypod
+  name: mypod
+spec:
+  containers:
+  - args:
+    - /bin/sh
+    - -c
+    - while true; do date; sleep 10; done
+    image: busybox:1.36.1
+    name: mypod
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
