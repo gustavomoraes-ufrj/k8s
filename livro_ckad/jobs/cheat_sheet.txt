@@ -1,0 +1,7 @@
+The restart policy of a Job can only be OnFailure or Never.
+
+Upon a container failure, the policy OnFailure will simply rerun the container.
+
+The policy Never does not restart the container upon a failure. It starts a new Pod instead.
+
+By default, a CronJob retains the last three successful Pods and the last failed Pod.

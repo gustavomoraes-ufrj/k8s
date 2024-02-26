@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: google-ping
+spec:
+  schedule: "*/2 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: google
+            image: nginx:alpine
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - 'curl -m 3 www.google.com'
+          restartPolicy: OnFailure
+
