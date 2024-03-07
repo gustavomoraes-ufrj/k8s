@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nginx-exam
+    service: nginx
+  name: nginx-exam
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx-exam
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nginx-exam
+        type: webshop
+    spec:
+      containers:
+      - image: nginx:1.18
+        name: nginx
+        resources: {}
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+     maxUnavailable: 2
+     maxSurge: 3
+status: {}
