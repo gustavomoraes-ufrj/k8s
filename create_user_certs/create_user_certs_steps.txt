@@ -1,0 +1,23 @@
+Root:
+ sudo useradd -m -G sudo -s /bin/bash felipe
+ sudo passwd felipe
+ kubectl create ns family
+ kubectl create rolebinding felipe-view -n family --user felipe --clusterrole view
+ kubectl run test --image nginx --port 80 --labels app=felipe-test -n family
+ kubectl get pods -n family --selector app=felipe-test
+ su - felipe
+
+Felipe:
+ mkdir .kube
+ sudo cp -i /etc/kubernetes/admin.conf ./.kube/config
+ sudo chown -R felipe:felipe ./.kube/
+ openssl genrsa -out felipe.key 4096
+ openssl req -new -key felipe.key -subj="/CN=felipe/O=k8s" -out felipe.csr
+ sudo openssl x509 -req -in felipe.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out felipe.crt -days 1800
+ kubectl config set-credentials felipe --client-certificate /home/felipe/felipe.crt --client-key /home/felipe/felipe.key --embed-certs
+ kubectl config set-context felipe-context --user felipe --cluster kubernetes --namespace family
+ kubectl config use-context felipe-context
+ kubectl get pods
+ kubectl create deploy test --image nginx
+
+
